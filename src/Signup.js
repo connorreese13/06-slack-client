@@ -21,6 +21,7 @@ class Signup extends React.Component {
       .then(response => {
         if (response.data) {
           localStorage.setItem("token", response.data);
+          this.props.history.push("/");
         } else {
           console.log("Nope");
         }
