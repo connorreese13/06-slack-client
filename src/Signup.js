@@ -28,7 +28,7 @@ class Signup extends React.Component {
         console.log(response.data);
       })
       .catch(err => {
-        this.setState({ error: err });
+        console.log(err);
       });
   };
   changeInput = (e, field) => {
