@@ -6,7 +6,8 @@ class Signup extends React.Component {
   state = {
     name: "",
     email: "",
-    password: ""
+    password: "",
+    error: ""
   };
   // Methods
   signup = e => {
@@ -18,10 +19,15 @@ class Signup extends React.Component {
         password: this.state.password
       })
       .then(response => {
+        if (response.data) {
+          localStorage.setItem("token", response.data);
+        } else {
+          console.log("Nope");
+        }
         console.log(response.data);
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ error: err });
       });
   };
   changeInput = (e, field) => {
