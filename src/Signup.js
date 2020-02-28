@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class Signup extends React.Component {
   // Data
@@ -10,7 +11,18 @@ class Signup extends React.Component {
   // Methods
   signup = e => {
     e.preventDefault();
-    this.props.history.push("/");
+    axios
+      .post(`${process.env.REACT_APP_API}/users/signup`, {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   changeInput = (e, field) => {
     let x = this.state;
