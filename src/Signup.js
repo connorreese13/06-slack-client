@@ -19,11 +19,17 @@ class Signup extends React.Component {
         password: this.state.password
       })
       .then(response => {
-        if (response.data) {
+        if (response.data === "Email already exists") {
+          this.setState({
+            error: "Email already exists"
+          });
+        } else if (response.data) {
           localStorage.setItem("token", response.data);
           this.props.history.push("/");
         } else {
-          console.log("Nope");
+          this.setState({
+            error: "Connection Error"
+          });
         }
         console.log(response.data);
       })

@@ -35,6 +35,8 @@ class Login extends React.Component {
 
     console.log(this.state);
   };
+
+  throwError = e => {};
   // Render
   render() {
     return (
