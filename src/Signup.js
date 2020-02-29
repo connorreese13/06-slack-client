@@ -12,30 +12,39 @@ class Signup extends React.Component {
   // Methods
   signup = e => {
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_API}/users/signup`, {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      })
-      .then(response => {
-        if (response.data === "Email already exists") {
-          this.setState({
-            error: "Email already exists"
-          });
-        } else if (response.data) {
-          localStorage.setItem("token", response.data);
-          this.props.history.push("/");
-        } else {
-          this.setState({
-            error: "Connection Error"
-          });
-        }
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
+    let name = this.state.name;
+    let password = this.state.password;
+    let email = this.state.email;
+    if (email !== "" && password !== "" && name !== "") {
+      axios
+        .post(`${process.env.REACT_APP_API}/users/signup`, {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+        })
+        .then(response => {
+          if (response.data === "Email already exists") {
+            this.setState({
+              error: "Email already exists"
+            });
+          } else if (response.data) {
+            localStorage.setItem("token", response.data);
+            this.props.history.push("/");
+          } else {
+            this.setState({
+              error: "Connection Error"
+            });
+          }
+          console.log(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      return this.setState({
+        error: "All fields are required"
       });
+    }
   };
   changeInput = (e, field) => {
     let x = this.state;
@@ -44,6 +53,18 @@ class Signup extends React.Component {
 
     console.log(this.state);
   };
+
+  handleValidation = () => {
+    let name = this.state.name;
+    let password = this.state.password;
+    let email = this.state.email;
+    if (name === "null" || password === "null" || email === "null") {
+      this.setState({
+        error: "All fields are required"
+      });
+    }
+  };
+
   // Render
   render() {
     return (
@@ -63,7 +84,11 @@ class Signup extends React.Component {
           placeholder="Password"
           onChange={e => this.changeInput(e, "password")}
         />
-        <button type="submit" className="positive">
+        <button
+          type="submit"
+          className="positive"
+          onClick={this.handleValidation()}
+        >
           Signup
         </button>
         <div className="link">

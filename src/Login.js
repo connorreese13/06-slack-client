@@ -10,23 +10,31 @@ class Login extends React.Component {
   // Methods
   login = e => {
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_API}/users/login`, {
-        email: this.state.email,
-        password: this.state.password
-      })
-      .then(response => {
-        if (response.data) {
-          localStorage.setItem("token", response.data);
-          this.props.history.push("/");
-        } else {
-          console.log("Nope");
-        }
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
+    let password = this.state.password;
+    let email = this.state.email;
+    if (email !== "" && password !== "") {
+      axios
+        .post(`${process.env.REACT_APP_API}/users/login`, {
+          email: this.state.email,
+          password: this.state.password
+        })
+        .then(response => {
+          if (response.data) {
+            localStorage.setItem("token", response.data);
+            this.props.history.push("/");
+          } else {
+            console.log("Nope");
+          }
+          console.log(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      return this.setState({
+        error: "All fields are required"
       });
+    }
   };
   changeInput = (e, field) => {
     let x = this.state;
