@@ -1,39 +1,29 @@
 import React, { Component } from "react";
 import "./styles/Sidebar.css";
+import axios from "axios";
 
 class Sidebar extends Component {
   // Data
   state = {
     workspace: "Tortuga Coders",
-    channels: [
-      {
-        _id: "1",
-        name: "general",
-        active: true
-      },
-      {
-        _id: "2",
-        name: "announcements"
-      },
-      {
-        _id: "3",
-        name: "fun"
-      },
-      {
-        _id: "4",
-        name: "random"
-      },
-      {
-        _id: "5",
-        name: "coding"
-      }
-    ]
+    channels: []
   };
   // Lifecycle
-  componentWillMount() {}
+  componentWillMount() {
+    let config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    };
+    axios
+      .get(`${process.env.REACT_APP_API}/channels`, config)
+      .then(response => {
+        console.log(response.data);
+        this.setState({ channels: response.data });
+      });
+  }
   // Methods
   logout = () => {
     this.props.history.push("/login");
+    localStorage.removeItem("token");
   };
   selectChannel = () => {};
   // Render
