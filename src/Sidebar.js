@@ -32,7 +32,9 @@ class Sidebar extends Component {
   // Lifecycle
   componentWillMount() {}
   // Methods
-  logout = () => {};
+  logout = () => {
+    this.props.history.push("/login");
+  };
   selectChannel = () => {};
   // Render
   render() {
