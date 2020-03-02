@@ -13,6 +13,7 @@ class Sidebar extends Component {
     let config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     };
+
     axios
       .get(`${process.env.REACT_APP_API}/channels`, config)
       .then(response => {
@@ -35,6 +36,7 @@ class Sidebar extends Component {
     this.setState({ channels });
     this.props.channel(selected._id);
   };
+
   // Render
   render() {
     return (

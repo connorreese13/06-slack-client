@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./styles/Messages.css";
 import "./styles/NewMessage.css";
 import axios from "axios";
+import moment from "moment";
 
 class Content extends Component {
   // Data
@@ -26,16 +27,12 @@ class Content extends Component {
   }
   componentWillReceiveProps(props) {
     let channel = props.channel;
-    console.log("props.channel", props.channel);
     this.setState({ channelID: channel });
     let messages = this.state.messagesCopy;
-    console.log(messages);
     messages = messages.filter(message => {
-      console.log(message.channel._id);
       return message.channel._id == props.channel;
     });
     this.setState({ messages });
-    console.log(this.state.messages);
   }
 
   // Methods
@@ -56,7 +53,7 @@ class Content extends Component {
             return (
               <div className="message" key={message._id}>
                 <span className="user">{message.user.name}</span>
-                <span className="date">Insert Date</span>
+                <span className="date">{message.date}</span>
                 <div className="body">{message.text}</div>
                 -> Insert Image
               </div>
