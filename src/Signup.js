@@ -7,7 +7,7 @@ class Signup extends React.Component {
     name: "",
     email: "",
     password: "",
-    error: ""
+    error: "bob"
   };
   // Methods
   signup = e => {

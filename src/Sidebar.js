@@ -17,7 +17,9 @@ class Sidebar extends Component {
       .get(`${process.env.REACT_APP_API}/channels`, config)
       .then(response => {
         console.log(response.data);
-        this.setState({ channels: response.data });
+        let channels = response.data;
+        channels[0].active = true;
+        this.setState({ channels });
       });
   }
   // Methods
@@ -25,7 +27,14 @@ class Sidebar extends Component {
     this.props.history.push("/login");
     localStorage.removeItem("token");
   };
-  selectChannel = () => {};
+  selectChannel = e => {
+    let channels = this.state.channels;
+    channels.map(c => (c.active = false));
+    channels.find(c => c._id === e).active = true;
+    let selected = channels.find(c => c._id === e);
+    this.setState({ channels });
+    this.props.channel(selected._id);
+  };
   // Render
   render() {
     return (
