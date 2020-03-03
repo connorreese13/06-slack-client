@@ -6,7 +6,7 @@ import axios from "axios";
 
 class Chat extends Component {
   state = {
-    channelID: "5e574d3c07e3bb6b6700f503",
+    channelID: "",
     messages: []
   };
 

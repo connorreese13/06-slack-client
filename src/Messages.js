@@ -10,7 +10,7 @@ class Content extends Component {
     newMessage: {
       text: "",
       file: null,
-      channel: this.props.channel
+      channel: "" //this.props.channel
     },
     messages: [],
     channelID: ""
