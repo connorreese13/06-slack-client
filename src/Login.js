@@ -20,9 +20,10 @@ class Login extends React.Component {
           password: this.state.password
         })
         .then(response => {
-          if (response.data.length > 25) {
+          if (response.data) {
             console.log(response.data);
-            localStorage.setItem("token", response.data);
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("name", response.data.name);
             this.props.history.push("/");
           } else {
             console.log(response);

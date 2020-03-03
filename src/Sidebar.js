@@ -6,10 +6,12 @@ class Sidebar extends Component {
   // Data
   state = {
     workspace: "Tortuga Coders",
+    user: "",
     channels: []
   };
   // Lifecycle
   componentWillMount() {
+    this.setState({ user: localStorage.getItem("name") });
     let config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     };
@@ -45,6 +47,7 @@ class Sidebar extends Component {
     return (
       <div id="sidebar">
         <h2>{this.state.workspace}</h2>
+        <h3> Welcome, {this.state.user} </h3>
         <ul className="list-unstyled">
           {this.state.channels.map(channel => {
             return (
