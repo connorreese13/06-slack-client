@@ -82,7 +82,6 @@ class Content extends Component {
           {this.state.messages.map(message => {
             let date = message.date;
             let formattedDate = moment(date).format("DD MMMM YYYY, h:mmA");
-
             return (
               <div className="message" key={message._id}>
                 <span className="user">{message.user.name}</span>

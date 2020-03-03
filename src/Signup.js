@@ -54,17 +54,6 @@ class Signup extends React.Component {
     console.log(this.state);
   };
 
-  handleValidation = () => {
-    let name = this.state.name;
-    let password = this.state.password;
-    let email = this.state.email;
-    if (name === "null" || password === "null" || email === "null") {
-      this.setState({
-        error: "All fields are required"
-      });
-    }
-  };
-
   // Render
   render() {
     return (
