@@ -80,10 +80,13 @@ class Content extends Component {
       <div id="messages">
         <div id="content">
           {this.state.messages.map(message => {
+            let date = message.date;
+            let formattedDate = moment(date).format("DD MMMM YYYY, h:mmA");
+
             return (
               <div className="message" key={message._id}>
                 <span className="user">{message.user.name}</span>
-                <span className="date">{message.date}</span>
+                <span className="date">{formattedDate}</span>
                 <div className="body">{message.text}</div>
                 -> Insert Image
               </div>
