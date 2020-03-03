@@ -21,6 +21,7 @@ class Sidebar extends Component {
         let channels = response.data;
         channels[0].active = true;
         this.setState({ channels });
+        this.props.channel(channels[0]._id);
       });
   }
   // Methods

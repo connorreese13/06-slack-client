@@ -9,7 +9,8 @@ class Content extends Component {
   state = {
     newMessage: {
       text: "",
-      file: null
+      file: null,
+      channel: ""
     },
     messages: [],
     channelID: "",
@@ -27,6 +28,7 @@ class Content extends Component {
   }
   componentWillReceiveProps(props) {
     let channel = props.channel;
+    console.log(channel);
     this.setState({ channelID: channel });
     let messages = this.state.messagesCopy;
     messages = messages.filter(message => {
@@ -43,6 +45,34 @@ class Content extends Component {
   };
   createMessage = e => {
     e.preventDefault();
+    let config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    };
+    let newMessage = this.state.newMessage;
+    console.log("this.state.channelID", this.state.channelID);
+    newMessage.channel = this.state.channelID;
+    console.log("hello");
+    console.log({ newMessage });
+    this.setState({ newMessage });
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/messages`,
+        this.state.newMessage,
+        config
+      )
+      .then(response => {
+        console.log(response.data);
+        if (response.data) {
+          let messages = this.state.messages;
+          messages.push(response.data);
+          this.setState({ messages });
+        } else {
+          console.log("no");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   // Render
   render() {
@@ -68,6 +98,7 @@ class Content extends Component {
           >
             <input type="file" name="file" onChange={this.addFile} />
             <input
+              id="mainInput"
               type="text"
               placeholder="New Message..."
               value={this.state.newMessage.text}
