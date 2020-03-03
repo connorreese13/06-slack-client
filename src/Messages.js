@@ -10,11 +10,10 @@ class Content extends Component {
     newMessage: {
       text: "",
       file: null,
-      channel: ""
+      channel: this.props.channel
     },
     messages: [],
-    channelID: "",
-    messagesCopy: []
+    channelID: ""
   };
   // Lifecycle
   componentWillMount() {
@@ -23,18 +22,14 @@ class Content extends Component {
     };
     axios.get(`${process.env.REACT_APP_API}/messages`, config).then(res => {
       this.setState({ messages: res.data });
-      this.setState({ messagesCopy: res.data });
     });
   }
   componentWillReceiveProps(props) {
-    let channel = props.channel;
-    console.log(channel);
-    this.setState({ channelID: channel });
-    let messages = this.state.messagesCopy;
-    messages = messages.filter(message => {
-      return message.channel._id == props.channel;
-    });
-    this.setState({ messages });
+    this.setState({ messages: props.messages });
+    this.setState({ channelID: props.channel });
+    let newMessage = this.state.newMessage;
+    newMessage.channel = props.channel;
+    this.setState({ newMessage });
   }
 
   // Methods
@@ -49,10 +44,7 @@ class Content extends Component {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     };
     let newMessage = this.state.newMessage;
-    console.log("this.state.channelID", this.state.channelID);
     newMessage.channel = this.state.channelID;
-    console.log("hello");
-    console.log({ newMessage });
     this.setState({ newMessage });
     axios
       .post(
@@ -61,8 +53,8 @@ class Content extends Component {
         config
       )
       .then(response => {
-        console.log(response.data);
         if (response.data) {
+          console.log(response.data);
           let messages = this.state.messages;
           messages.push(response.data);
           this.setState({ messages });
@@ -73,6 +65,9 @@ class Content extends Component {
       .catch(err => {
         console.log(err);
       });
+    let messageField = this.newMessage.text;
+    messageField = "";
+    this.setState({ messageField });
   };
   // Render
   render() {

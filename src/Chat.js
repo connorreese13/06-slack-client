@@ -6,14 +6,15 @@ import axios from "axios";
 
 class Chat extends Component {
   state = {
-    channelID: "",
+    channelID: "5e574d3c07e3bb6b6700f503",
     messages: []
   };
+
   getChannel = id => {
-    this.setState({ channelID: id });
+    this.setState({ channelID: id }, () => this.filterMessage());
   };
 
-  componentWillMount() {
+  filterMessage = () => {
     let config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     };
@@ -26,7 +27,9 @@ class Chat extends Component {
         console.log("res.data in chat", res.data);
         this.setState({ messages: res.data });
       });
-  }
+  };
+
+  componentWillMount() {}
 
   // Render
   render() {

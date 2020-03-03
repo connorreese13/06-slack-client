@@ -17,7 +17,6 @@ class Sidebar extends Component {
     axios
       .get(`${process.env.REACT_APP_API}/channels`, config)
       .then(response => {
-        console.log(response.data);
         let channels = response.data;
         channels[0].active = true;
         this.setState({ channels });
