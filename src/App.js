@@ -14,7 +14,17 @@ class App extends Component {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/" component={Chat} />
+          // <Route path="/" component={Chat} />
+          <Route
+            path="/"
+            render={() =>
+              localStorage.getItem("token") ? (
+                <Chat />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
         </Switch>
       </BrowserRouter>
     );

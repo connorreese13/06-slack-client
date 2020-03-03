@@ -21,6 +21,9 @@ class Sidebar extends Component {
         channels[0].active = true;
         this.setState({ channels });
         this.props.channel(channels[0]._id);
+      })
+      .catch(err => {
+        console.log("not authorized");
       });
   }
   // Methods

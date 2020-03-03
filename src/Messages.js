@@ -65,10 +65,15 @@ class Content extends Component {
       .catch(err => {
         console.log(err);
       });
-    let messageField = this.newMessage.text;
-    messageField = "";
-    this.setState({ messageField });
+    this.setState({
+      newMessage: {
+        text: "",
+        file: null,
+        channel: ""
+      }
+    });
   };
+
   // Render
   render() {
     return (
