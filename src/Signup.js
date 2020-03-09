@@ -73,11 +73,7 @@ class Signup extends React.Component {
           placeholder="Password"
           onChange={e => this.changeInput(e, "password")}
         />
-        <button
-          type="submit"
-          className="positive"
-          onClick={this.handleValidation()}
-        >
+        <button type="submit" className="positive">
           Signup
         </button>
         <div className="link">
